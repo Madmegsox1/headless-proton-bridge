@@ -29,6 +29,7 @@ import (
 	"github.com/ProtonMail/proton-bridge/v3/internal/bridge"
 	"github.com/ProtonMail/proton-bridge/v3/pkg/ports"
 	"github.com/abiosoft/ishell"
+	"github.com/ProtonMail/proton-bridge/v3/internal/constants"
 )
 
 func (f *frontendCLI) printLogDir(_ *ishell.Context) {
@@ -48,6 +49,15 @@ func (f *frontendCLI) printCredits(_ *ishell.Context) {
 		f.Println(pkg)
 	}
 }
+
+func (f *frontendCLI) allowOutgoingRequests(_ *ishell.Context) {
+	constants.Host = "0.0.0.0"
+}
+
+func (f *frontendCLI) disallowOutgoingRequests(_ *ishell.Context) {
+	constants.Host = "127.0.0.1"
+}
+
 
 func (f *frontendCLI) changeIMAPSecurity(_ *ishell.Context) {
 	f.ShowPrompt(false)

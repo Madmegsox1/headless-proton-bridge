@@ -50,6 +50,9 @@ var (
 
 	// BuildEnv tags used at build time.
 	BuildEnv = ""
+
+	// Host is the hostname of the bridge server.
+	Host = "127.0.0.1"
 )
 
 const (
@@ -65,8 +68,7 @@ const (
 	// KeyChainName is the name of the entry in the OS keychain.
 	KeyChainName = "bridge-v3"
 
-	// Host is the hostname of the bridge server.
-	Host = "127.0.0.1"
+
 )
 
 // nolint:goconst
