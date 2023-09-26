@@ -27,9 +27,9 @@ import (
 	"strings"
 
 	"github.com/ProtonMail/proton-bridge/v3/internal/bridge"
+	"github.com/ProtonMail/proton-bridge/v3/internal/constants"
 	"github.com/ProtonMail/proton-bridge/v3/pkg/ports"
 	"github.com/abiosoft/ishell"
-	"github.com/ProtonMail/proton-bridge/v3/internal/constants"
 )
 
 func (f *frontendCLI) printLogDir(_ *ishell.Context) {
@@ -52,26 +52,23 @@ func (f *frontendCLI) printCredits(_ *ishell.Context) {
 
 func (f *frontendCLI) allowOutgoingRequests(_ *ishell.Context) {
 	constants.Host = "0.0.0.0"
-	if err := f.bridge.SetHostName("0.0.0.0"); err != nil {
+	if err := f.bridge.SetHostName(context.Background(), "0.0.0.0"); err != nil {
 		f.printAndLogError(err)
-	}
-	else{
-		f.Sprintf("SMTP Relay is now live on 0.0.0.0:%q", f.bridge.GetSMTPPort())
+	} else {
+		f.Println(fmt.Sprintf("SMTP Relay is now live on 0.0.0.0:%q", f.bridge.GetSMTPPort()))
 	}
 }
 
 func (f *frontendCLI) disallowOutgoingRequests(_ *ishell.Context) {
 	constants.Host = "127.0.0.1"
 
-	if err := f.bridge.SetHostName("127.0.0.1"); err != nil {
+	if err := f.bridge.SetHostName(context.Background(), "127.0.0.1"); err != nil {
 		f.printAndLogError(err)
-	}
-	else{
+	} else {
 		f.Println("SMTP Relay has been switch off")
 	}
 
 }
-
 
 func (f *frontendCLI) changeIMAPSecurity(_ *ishell.Context) {
 	f.ShowPrompt(false)

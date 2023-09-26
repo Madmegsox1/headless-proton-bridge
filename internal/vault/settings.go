@@ -38,7 +38,7 @@ func (vault *Vault) GetHostName() string {
 }
 
 func (vault *Vault) SetHostName(hostname string) error {
-	return valut.modSafe(func(data *Data){
+	return vault.modSafe(func(data *Data) {
 		data.Settings.Hostname = hostname
 	})
 }

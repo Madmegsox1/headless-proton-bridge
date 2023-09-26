@@ -90,11 +90,11 @@ func (bridge *Bridge) GetHostName() string {
 }
 
 func (bridge *Bridge) SetHostName(ctx context.Context, newHost string) error {
-	if newHost == GetHostName() {
+	if newHost == bridge.vault.GetHostName() {
 		return nil
 	}
 
-	if err := bridge.valut.SetHostName(newHost); err != nil {
+	if err := bridge.vault.SetHostName(newHost); err != nil {
 		return err
 	}
 
@@ -104,7 +104,6 @@ func (bridge *Bridge) SetHostName(ctx context.Context, newHost string) error {
 
 	return bridge.restartSMTP(ctx)
 }
-
 
 func (bridge *Bridge) GetSMTPPort() int {
 	return bridge.vault.GetSMTPPort()

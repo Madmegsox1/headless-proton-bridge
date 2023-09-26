@@ -327,21 +327,20 @@ func New(
 
 	outgoingRequests := &ishell.Cmd{
 		Name: "smtp-relay",
-		Help: "Used to allow requests from foreign clients turning Bridge into a smtp relay"
+		Help: "Used to allow requests from foreign clients turning Bridge into a smtp relay",
 	}
 
 	outgoingRequests.AddCmd(&ishell.Cmd{
 		Name: "enable",
 		Help: "Enables smtp relay",
-		Func: fe.allowOutgoingRequests
+		Func: fe.allowOutgoingRequests,
 	})
 
 	outgoingRequests.AddCmd(&ishell.Cmd{
 		Name: "disable",
 		Help: "Disables smtp relay",
-		Func: fe.disallowOutgoingRequests
+		Func: fe.disallowOutgoingRequests,
 	})
-
 
 	fe.AddCmd(outgoingRequests)
 
