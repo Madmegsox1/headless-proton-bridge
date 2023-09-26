@@ -94,7 +94,7 @@ func (bridge *Bridge) SetHostName(ctx context.Context, newHost string) error {
 		return nil
 	}
 
-	if err := bridge.valut.SetHost(newHost); err != nil {
+	if err := bridge.valut.SetHostName(newHost); err != nil {
 		return err
 	}
 

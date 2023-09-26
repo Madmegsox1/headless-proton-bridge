@@ -37,6 +37,12 @@ func (vault *Vault) GetHostName() string {
 	return vault.getSafe().Settings.Hostname
 }
 
+func (vault *Vault) SetHostName(hostname string) error {
+	return valut.modSafe(func(data *Data){
+		data.Settings.Hostname = hostname
+	})
+}
+
 // GetIMAPPort sets the port that the IMAP server should listen on.
 func (vault *Vault) GetIMAPPort() int {
 	return vault.getSafe().Settings.IMAPPort
