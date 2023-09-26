@@ -98,7 +98,7 @@ func (f *frontendCLI) showAccountAddressInfo(user bridge.UserInfo, address strin
 
 	f.Println(bold("Configuration for " + address))
 	f.Printf("IMAP Settings\nAddress:   %s\nIMAP port: %d\nUsername:  %s\nPassword:  %s\nSecurity:  %s\n",
-		constants.Host,
+		f.bridge.GetHostName(),
 		f.bridge.GetIMAPPort(),
 		address,
 		user.BridgePass,
@@ -106,7 +106,7 @@ func (f *frontendCLI) showAccountAddressInfo(user bridge.UserInfo, address strin
 	)
 	f.Println("")
 	f.Printf("SMTP Settings\nAddress:   %s\nSMTP port: %d\nUsername:  %s\nPassword:  %s\nSecurity:  %s\n",
-		constants.Host,
+		f.bridge.GetHostName(),
 		f.bridge.GetSMTPPort(),
 		address,
 		user.BridgePass,

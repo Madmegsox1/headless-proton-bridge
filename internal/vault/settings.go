@@ -32,6 +32,11 @@ const (
 	ForbiddenRollout = 0.6046602879796196
 )
 
+// GetHostName gets the hostname that the SMTP server should listen on.
+func (vault *Vault) GetHostName() string {
+	return vault.getSafe().Settings.Hostname
+}
+
 // GetIMAPPort sets the port that the IMAP server should listen on.
 func (vault *Vault) GetIMAPPort() int {
 	return vault.getSafe().Settings.IMAPPort

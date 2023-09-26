@@ -85,6 +85,27 @@ func (bridge *Bridge) SetIMAPSSL(ctx context.Context, newSSL bool) error {
 	return bridge.restartIMAP(ctx)
 }
 
+func (bridge *Bridge) GetHostName() string {
+	return bridge.vault.GetHostName()
+}
+
+func (bridge *Bridge) SetHostName(ctx context.Context, newHost string) error {
+	if newHost == GetHostName() {
+		return nil
+	}
+
+	if err := bridge.valut.SetHost(newHost); err != nil {
+		return err
+	}
+
+	if err := bridge.restartIMAP(ctx); err != nil {
+		return err
+	}
+
+	return bridge.restartSMTP(ctx)
+}
+
+
 func (bridge *Bridge) GetSMTPPort() int {
 	return bridge.vault.GetSMTPPort()
 }

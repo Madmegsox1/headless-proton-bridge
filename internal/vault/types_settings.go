@@ -29,7 +29,7 @@ import (
 
 type Settings struct {
 	GluonDir string
-
+	Hostname string
 	IMAPPort int
 	SMTPPort int
 	IMAPSSL  bool
@@ -82,7 +82,8 @@ func newDefaultSettings(gluonDir string) Settings {
 
 	return Settings{
 		GluonDir: gluonDir,
-
+		
+		Hostname: "127.0.0.1",
 		IMAPPort: imapPort,
 		SMTPPort: smtpPort,
 		IMAPSSL:  false,

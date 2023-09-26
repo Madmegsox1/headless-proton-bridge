@@ -52,10 +52,24 @@ func (f *frontendCLI) printCredits(_ *ishell.Context) {
 
 func (f *frontendCLI) allowOutgoingRequests(_ *ishell.Context) {
 	constants.Host = "0.0.0.0"
+	if err := f.bridge.SetHostName("0.0.0.0"); err != nil {
+		f.printAndLogError(err)
+	}
+	else{
+		f.Sprintf("SMTP Relay is now live on 0.0.0.0:%q", f.bridge.GetSMTPPort())
+	}
 }
 
 func (f *frontendCLI) disallowOutgoingRequests(_ *ishell.Context) {
 	constants.Host = "127.0.0.1"
+
+	if err := f.bridge.SetHostName("127.0.0.1"); err != nil {
+		f.printAndLogError(err)
+	}
+	else{
+		f.Println("SMTP Relay has been switch off")
+	}
+
 }
 
 
