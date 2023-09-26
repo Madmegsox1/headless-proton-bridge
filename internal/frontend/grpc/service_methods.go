@@ -722,7 +722,7 @@ func (s *Service) SetMailServerSettings(_ context.Context, settings *ImapSmtpSet
 func (s *Service) Hostname(_ context.Context, _ *emptypb.Empty) (*wrapperspb.StringValue, error) {
 	s.log.Debug("Hostname")
 
-	return wrapperspb.String(constants.Host), nil
+	return wrapperspb.String(s.bridge.GetHostName()), nil
 }
 
 func (s *Service) IsPortFree(_ context.Context, port *wrapperspb.Int32Value) (*wrapperspb.BoolValue, error) {

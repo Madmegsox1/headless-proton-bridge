@@ -33,7 +33,7 @@ import (
 func TestServerManager_NoLoadedUsersNoServers(t *testing.T) {
 	withEnv(t, func(ctx context.Context, s *server.Server, netCtl *proton.NetCtl, locator bridge.Locator, storeKey []byte) {
 		withBridge(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, mocks *bridge.Mocks) {
-			_, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+			_, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 			require.Error(t, err)
 		})
 	})
@@ -112,7 +112,7 @@ func TestServerManager_ServersDoNotStopWhenThereIsStillOneActiveUser(t *testing.
 
 			waitForEvent(t, evtCh, events.UserDeauth{})
 
-			imapClient, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+			imapClient, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 			require.NoError(t, err)
 			require.NoError(t, imapClient.Logout())
 		})
@@ -137,7 +137,7 @@ func TestServerManager_ServersStartIfAtLeastOneUserIsLoggedIn(t *testing.T) {
 		require.NoError(t, s.RevokeUser(userIDOther))
 
 		withBridgeWaitForServers(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, mocks *bridge.Mocks) {
-			imapClient, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+			imapClient, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 			require.NoError(t, err)
 			require.NoError(t, imapClient.Logout())
 		})

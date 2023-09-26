@@ -63,7 +63,7 @@ func (bridge *Bridge) ConfigureAppleMail(ctx context.Context, userID, address st
 		}
 
 		return (&clientconfig.AppleMail{}).Configure(
-			constants.Host,
+			bridge.vault.GetHostName(),
 			bridge.vault.GetIMAPPort(),
 			bridge.vault.GetSMTPPort(),
 			bridge.vault.GetIMAPSSL(),

@@ -80,7 +80,7 @@ func TestBridge_HandleDraftsSendFromOtherClient(t *testing.T) {
 			require.NoError(t, err)
 			require.True(t, info.State == bridge.Connected)
 
-			client, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, b.GetIMAPPort()))
+			client, err := eventuallyDial(fmt.Sprintf("%v:%v", b.GetHostName(), b.GetIMAPPort()))
 			require.NoError(t, err)
 			require.NoError(t, client.Login(info.Addresses[0], string(info.BridgePass)))
 			defer func() { _ = client.Logout() }()
@@ -117,7 +117,7 @@ Hello
 			newLiteralModified := append(newLiteral, []byte(" world from client2")...) //nolint:gocritic
 
 			func() {
-				smtpClient, err := smtp.Dial(net.JoinHostPort(constants.Host, fmt.Sprint(b.GetSMTPPort())))
+				smtpClient, err := smtp.Dial(net.JoinHostPort(b.GetHostName(), fmt.Sprint(b.GetSMTPPort())))
 				require.NoError(t, err)
 				defer func() { _ = smtpClient.Close() }()
 

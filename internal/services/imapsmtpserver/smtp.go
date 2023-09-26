@@ -38,13 +38,13 @@ type SMTPSettingsProvider interface {
 	Identifier() identifier.UserAgentUpdater
 }
 
-func newSMTPServer(accounts *smtpservice.Accounts, settings SMTPSettingsProvider) *smtp.Server {
+func newSMTPServer(accounts *smtpservice.Accounts, settings SMTPSettingsProvider, host string) *smtp.Server {
 	logrus.WithField("logSMTP", settings.Log()).Info("Creating SMTP server")
 
 	smtpServer := smtp.NewServer(smtpservice.NewBackend(accounts, settings.Identifier()))
 
-	smtpServer.TLSConfig = settings.TLSConfig()
-	smtpServer.Domain = constants.Host
+	smtpServer.TLSConfig = settings.TLSConfi g()
+	smtpServer.Domain = host
 	smtpServer.AllowInsecureAuth = true
 	smtpServer.MaxLineLength = 1 << 16
 	smtpServer.ErrorLog = logging.NewSMTPLogger()

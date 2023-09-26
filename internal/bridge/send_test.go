@@ -64,7 +64,7 @@ func TestBridge_Send(t *testing.T) {
 
 			for i := 0; i < 10; i++ {
 				// Dial the server.
-				client, err := smtp.Dial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetSMTPPort())))
+				client, err := smtp.Dial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetSMTPPort())))
 				require.NoError(t, err)
 				defer client.Close() //nolint:errcheck
 
@@ -95,13 +95,13 @@ func TestBridge_Send(t *testing.T) {
 			}
 
 			// Connect the sender IMAP client.
-			senderIMAPClient, err := eventuallyDial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetIMAPPort())))
+			senderIMAPClient, err := eventuallyDial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetIMAPPort())))
 			require.NoError(t, err)
 			require.NoError(t, senderIMAPClient.Login(senderInfo.Addresses[0], string(senderInfo.BridgePass)))
 			defer senderIMAPClient.Logout() //nolint:errcheck
 
 			// Connect the recipient IMAP client.
-			recipientIMAPClient, err := eventuallyDial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetIMAPPort())))
+			recipientIMAPClient, err := eventuallyDial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetIMAPPort())))
 			require.NoError(t, err)
 			require.NoError(t, recipientIMAPClient.Login(recipientInfo.Addresses[0], string(recipientInfo.BridgePass)))
 			defer recipientIMAPClient.Logout() //nolint:errcheck
@@ -145,7 +145,7 @@ func TestBridge_SendDraftFlags(t *testing.T) {
 			require.NoError(t, err)
 
 			// Connect the sender IMAP client.
-			imapClient, err := eventuallyDial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetIMAPPort())))
+			imapClient, err := eventuallyDial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetIMAPPort())))
 			require.NoError(t, err)
 			require.NoError(t, imapClient.Login(userInfo.Addresses[0], string(userInfo.BridgePass)))
 			defer imapClient.Logout() //nolint:errcheck
@@ -165,7 +165,7 @@ func TestBridge_SendDraftFlags(t *testing.T) {
 			}
 
 			// Connect the SMTP client.
-			smtpClient, err := smtp.Dial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetSMTPPort())))
+			smtpClient, err := smtp.Dial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetSMTPPort())))
 			require.NoError(t, err)
 			defer smtpClient.Close() //nolint:errcheck
 
@@ -255,7 +255,7 @@ func TestBridge_SendInvite(t *testing.T) {
 			require.NoError(t, err)
 
 			// Connect the sender IMAP client.
-			imapClient, err := eventuallyDial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetIMAPPort())))
+			imapClient, err := eventuallyDial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetIMAPPort())))
 			require.NoError(t, err)
 			require.NoError(t, imapClient.Login(userInfo.Addresses[0], string(userInfo.BridgePass)))
 			defer imapClient.Logout() //nolint:errcheck
@@ -276,7 +276,7 @@ func TestBridge_SendInvite(t *testing.T) {
 			}
 
 			// Connect the SMTP client.
-			smtpClient, err := smtp.Dial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetSMTPPort())))
+			smtpClient, err := smtp.Dial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetSMTPPort())))
 			require.NoError(t, err)
 			defer smtpClient.Close() //nolint:errcheck
 
@@ -431,7 +431,7 @@ SGVsbG8gd29ybGQK
 
 			for _, m := range messages {
 				// Dial the server.
-				client, err := smtp.Dial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetSMTPPort())))
+				client, err := smtp.Dial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetSMTPPort())))
 				require.NoError(t, err)
 				defer client.Close() //nolint:errcheck
 
@@ -453,13 +453,13 @@ SGVsbG8gd29ybGQK
 			}
 
 			// Connect the sender IMAP client.
-			senderIMAPClient, err := eventuallyDial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetIMAPPort())))
+			senderIMAPClient, err := eventuallyDial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetIMAPPort())))
 			require.NoError(t, err)
 			require.NoError(t, senderIMAPClient.Login(senderInfo.Addresses[0], string(senderInfo.BridgePass)))
 			defer senderIMAPClient.Logout() //nolint:errcheck
 
 			// Connect the recipient IMAP client.
-			recipientIMAPClient, err := eventuallyDial(net.JoinHostPort(constants.Host, fmt.Sprint(bridge.GetIMAPPort())))
+			recipientIMAPClient, err := eventuallyDial(net.JoinHostPort(bridge.GetHostName(), fmt.Sprint(bridge.GetIMAPPort())))
 			require.NoError(t, err)
 			require.NoError(t, recipientIMAPClient.Login(recipientInfo.Addresses[0], string(recipientInfo.BridgePass)))
 			defer recipientIMAPClient.Logout() //nolint:errcheck

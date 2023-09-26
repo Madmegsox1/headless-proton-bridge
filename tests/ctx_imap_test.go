@@ -30,7 +30,7 @@ func (t *testCtx) newIMAPClient(userID, clientID string) error {
 }
 
 func (t *testCtx) newIMAPClientOnPort(userID, clientID string, imapPort int) error {
-	cli, err := eventuallyDial(fmt.Sprintf("%v:%d", constants.Host, imapPort))
+	cli, err := eventuallyDial(fmt.Sprintf("%v:%d", t.bridge.GetHostName(), imapPort))
 	if err != nil {
 		return err
 	}

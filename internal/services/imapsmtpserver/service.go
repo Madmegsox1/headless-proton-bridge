@@ -465,7 +465,7 @@ func (sm *Service) createIMAPServer(ctx context.Context) (*gluon.Server, error) 
 }
 
 func (sm *Service) createSMTPServer() *smtp.Server {
-	return newSMTPServer(sm.smtpAccounts, sm.smtpSettings)
+	return newSMTPServer(sm.smtpAccounts, sm.smtpSettings, sm.bridge.GetHostName())
 }
 
 func (sm *Service) closeSMTPServer(ctx context.Context) error {
@@ -553,7 +553,7 @@ func (sm *Service) restartSMTP(ctx context.Context) error {
 
 	sm.eventPublisher.PublishEvent(ctx, events.SMTPServerStopped{})
 
-	sm.smtpServer = newSMTPServer(sm.smtpAccounts, sm.smtpSettings)
+	sm.smtpServer = newSMTPServer(sm.smtpAccounts, sm.smtpSettings, sm.bridge.GetHostName())
 
 	if sm.shouldStartServers() {
 		return sm.serveSMTP(ctx)
@@ -568,8 +568,8 @@ func (sm *Service) serveSMTP(ctx context.Context) error {
 			"port": sm.smtpSettings.Port(),
 			"ssl":  sm.smtpSettings.UseSSL(),
 		}).Info("Starting SMTP server")
-
-		smtpListener, err := newListener(sm.smtpSettings.Port(), sm.smtpSettings.UseSSL(), sm.smtpSettings.TLSConfig())
+	
+		smtpListener, err := newListener(sm.smtpSettings.Port(), sm.smtpSettings.UseSSL(), sm.smtpSettings.TLSConfig(), sm.bridge.GetHostName())
 		if err != nil {
 			return 0, fmt.Errorf("failed to create SMTP listener: %w", err)
 		}

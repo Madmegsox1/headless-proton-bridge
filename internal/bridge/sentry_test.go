@@ -57,7 +57,7 @@ func TestBridge_Report(t *testing.T) {
 			imapWaiter.Wait()
 
 			// Dial the IMAP port.
-			conn, err := net.Dial("tcp", fmt.Sprintf("%v:%v", constants.Host, b.GetIMAPPort()))
+			conn, err := net.Dial("tcp", fmt.Sprintf("%v:%v", b.GetHostName(), b.GetIMAPPort()))
 			require.NoError(t, err)
 			defer func() { require.NoError(t, conn.Close()) }()
 

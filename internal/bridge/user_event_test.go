@@ -442,7 +442,7 @@ func TestBridge_User_DropConn_NoBadEvent(t *testing.T) {
 			info, err := bridge.QueryUserInfo("user")
 			require.NoError(t, err)
 
-			cli, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+			cli, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 			require.NoError(t, err)
 			require.NoError(t, cli.Login(info.Addresses[0], string(info.BridgePass)))
 			defer func() { _ = cli.Logout() }()
@@ -643,7 +643,7 @@ func TestBridge_User_SendDraftRemoveDraftFlag(t *testing.T) {
 				info, err := bridge.QueryUserInfo("user")
 				require.NoError(t, err)
 
-				cli, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+				cli, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 				require.NoError(t, err)
 				require.NoError(t, cli.Login(info.Addresses[0], string(info.BridgePass)))
 				defer func() { _ = cli.Logout() }()
@@ -682,7 +682,7 @@ func TestBridge_User_SendDraftRemoveDraftFlag(t *testing.T) {
 				info, err := bridge.QueryUserInfo("user")
 				require.NoError(t, err)
 
-				cli, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+				cli, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 				require.NoError(t, err)
 				require.NoError(t, cli.Login(info.Addresses[0], string(info.BridgePass)))
 				defer func() { _ = cli.Logout() }()
@@ -790,7 +790,7 @@ func TestBridge_User_HandleParentLabelRename(t *testing.T) {
 			imapWaiter.Wait()
 			smtpWaiter.Wait()
 
-			cli, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+			cli, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 			require.NoError(t, err)
 			require.NoError(t, cli.Login(info.Addresses[0], string(info.BridgePass)))
 			defer func() { _ = cli.Logout() }()
@@ -900,7 +900,7 @@ func userContinueEventProcess(
 	info, err := bridge.QueryUserInfo("user")
 	require.NoError(t, err)
 
-	cli, err := eventuallyDial(fmt.Sprintf("%v:%v", constants.Host, bridge.GetIMAPPort()))
+	cli, err := eventuallyDial(fmt.Sprintf("%v:%v", bridge.GetHostName(), bridge.GetIMAPPort()))
 	require.NoError(t, err)
 	require.NoError(t, cli.Login(info.Addresses[0], string(info.BridgePass)))
 	defer func() { _ = cli.Logout() }()

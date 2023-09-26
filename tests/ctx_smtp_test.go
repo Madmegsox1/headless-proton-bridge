@@ -29,7 +29,7 @@ func (t *testCtx) newSMTPClient(userID, clientID string) error {
 }
 
 func (t *testCtx) newSMTPClientOnPort(userID, clientID string, imapPort int) error {
-	client, err := smtp.Dial(fmt.Sprintf("%v:%d", constants.Host, imapPort))
+	client, err := smtp.Dial(fmt.Sprintf("%v:%d", t.bridge.GetHostName(), imapPort))
 	if err != nil {
 		return err
 	}

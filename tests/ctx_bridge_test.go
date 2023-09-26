@@ -283,7 +283,7 @@ func (t *testCtx) initFrontendClient() error {
 	if len(cfg.FileSocketPath) != 0 {
 		target = "unix://" + cfg.FileSocketPath
 	} else {
-		target = fmt.Sprintf("%v:%d", constants.Host, cfg.Port)
+		target = fmt.Sprintf("%v:%d", t.bridge.GetHostName(), cfg.Port)
 	}
 
 	conn, err := grpc.DialContext(
